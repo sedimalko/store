@@ -50,7 +50,7 @@ def create_animal(request):
         age=age,
         kind=kind,
         image_url=image_url,
-        breed=breed
+        breed=breed,
     )
     animal.save()
     return HttpResponse(
@@ -58,9 +58,16 @@ def create_animal(request):
     )
 
 
-def edit_animal(request):
-    pass
+def edit_animal(request, animal_id):
+    animal = Animal.objects.get(pk=animal_id)
+    old_name = animal.name
+    name = request.GET.get("name")
+    animal.name = name
+    return HttpResponse(f"Name of the animal changed from {old_name} to {name}")
 
 
-def delete(request):
-    pass
+def delete(request, animal_id):
+    animal = Animal.objects.get(pk=animal_id)
+    a_id = animal_id
+    animal.delete()
+    return HttpResponse(f"animal with id {a_id} deleted form DB")
