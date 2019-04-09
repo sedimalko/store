@@ -63,6 +63,7 @@ def edit_animal(request, animal_id):
     old_name = animal.name
     name = request.GET.get("name")
     animal.name = name
+    animal.save()
     return HttpResponse(f"Name of the animal changed from {old_name} to {name}")
 
 
