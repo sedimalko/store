@@ -35,3 +35,32 @@ def get_all_dogs(requst):
 def order_animals(request):
     animals = Animal.objects.all().order_by("-age")
     return HttpResponse(serialized_data(animals))
+
+
+def create_animal(request):
+    name = request.GET.get("name")
+    age = request.GET.get("age")
+    kind = request.GET.get("kind")
+    image_url = request.GET.get("image_url")
+    breed = request.GET.get("breed")
+    description = request.GET.get("description")
+    animal = Animal(
+        name=name,
+        description=description,
+        age=age,
+        kind=kind,
+        image_url=image_url,
+        breed=breed
+    )
+    animal.save()
+    return HttpResponse(
+        f"Animal of kind {animal.kind} with name {animal.name} saved to DB"
+    )
+
+
+def edit_animal(request):
+    pass
+
+
+def delete(request):
+    pass
